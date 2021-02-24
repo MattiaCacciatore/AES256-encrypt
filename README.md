@@ -31,8 +31,8 @@ This program is an implementation of AES 256 based on official documents
 This is a simplified version of encryption algorithm based on Rijndeal's model,
 it only support 256 bit encryption part.
 The message/plaintext/password is taken by terminal/keyboard, while 
-private key/secret key/cipher key is taken from the section "Global matrix
-- array" in "AES256_encrypted_functions.cpp".
+private key/secret key/cipher key is taken from the section "Global matrix 
+and array" in "AES256_encrypted_functions.cpp".
 Since unsigned char are used, i'd remind you their form, like this one: '0x12',
 they go from 0x00 to 0xff.
 Code size and some implementation choices were made in order to make it more 
