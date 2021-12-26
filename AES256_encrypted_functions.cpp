@@ -1,5 +1,4 @@
-/*
- *  AES256_encrypted_functions.cpp
+/*  AES256_encrypted_functions.cpp
  *
  *  Copyright (c) 2021, Mattia Cacciatore <cacciatore1995@hotmail.it>
  *  All rights reserved.
@@ -137,7 +136,7 @@ void R_con(unsigned char RCon_column[NUM_BLOCKS], const int round){
    // by 0 is equivalent to do nothing.
    RCon_column[0] = static_cast<unsigned char>(RCon_column[0] ^ r_con[round]);
 }
-
+// It creates other Nr keys based on the first key (first key = plaintext).
 void key_expansion(unsigned char expanded_key[NUM_BLOCKS][NUM_BLOCKS * (NUM_ROUNDS + 1)]){
    // ExpandedKey is a series of columns made of 4 bytes words,
    // 14 rounds require 14 keys + 1 original key --> 14 * 4 + 4 = 60 columns.
@@ -164,7 +163,7 @@ void key_expansion(unsigned char expanded_key[NUM_BLOCKS][NUM_BLOCKS * (NUM_ROUN
 	for(int j = 0; j < NUM_BLOCKS; ++j){ expanded_key[j][i] = static_cast<unsigned char>(expanded_key[j][i - NUM_KEY] ^ tmp[j]);}
    }
 }
-
+// Rijndael key schedule.
 void AES_key_scheduler(const unsigned char expanded_key[NUM_BLOCKS][NUM_BLOCKS * (NUM_ROUNDS + 1)], 
                              unsigned char round_key[NUM_BLOCKS][NUM_BLOCKS], const int round){
    // Copying the round-th key into RoundKey matrix ready to encrypt state matrix.
@@ -172,7 +171,7 @@ void AES_key_scheduler(const unsigned char expanded_key[NUM_BLOCKS][NUM_BLOCKS *
 	for(int r = 0; r < NUM_BLOCKS; ++r){ round_key[r][c] = expanded_key[r][(NUM_BLOCKS * round) + c];}
    }
 }
-
+// First step of AES-256 algorithm. It substitute matrix values with Rijndael's s_box values.
 void sub_bytes(unsigned char state[NUM_BLOCKS][NUM_BLOCKS]){
    unsigned char c;
    // Rows.
@@ -188,7 +187,7 @@ void sub_bytes(unsigned char state[NUM_BLOCKS][NUM_BLOCKS]){
        }
    }
 }
-
+// Second step of AES-256 algorithm. It switchs rows between them creating confusion.
 void shift_rows(unsigned char state[NUM_BLOCKS][NUM_BLOCKS]){
    unsigned char tmp;
    // Shift starts from second row.
@@ -217,7 +216,7 @@ void shift_rows(unsigned char state[NUM_BLOCKS][NUM_BLOCKS]){
 	}
    }
 }
-
+// Third step of AES-256 algorithm. It diffuses confusion.
 void mix_columns(unsigned char state[NUM_BLOCKS][NUM_BLOCKS]){
    unsigned char tmp[NUM_BLOCKS]; //Helper column.
    for(int c = 0; c < NUM_BLOCKS; ++c){
@@ -237,7 +236,7 @@ void mix_columns(unsigned char state[NUM_BLOCKS][NUM_BLOCKS]){
 	for(int r = 0; r < NUM_BLOCKS; ++r){ state[r][c] = tmp[r];}
    }
 }
-
+// Fourth and last step of AES-256 algorithm. It permutes state matrix with roundkey using XOR operator.
 void add_round_key(unsigned char state[NUM_BLOCKS][NUM_BLOCKS], const unsigned char round_key[NUM_BLOCKS][NUM_BLOCKS]){
    for(int r = 0, i = 0; r < NUM_BLOCKS; ++r){
 	// | s11 s12 s13 s14 |     | r11 r12 r13 r14 |     | se11 se12 se13 se14 |
