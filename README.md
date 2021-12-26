@@ -2,9 +2,9 @@ Made by Mattia Cacciatore <cacciatore1995@hotmail.it>
 
 Computer science student at UniGe (University of Genoa - Italy) - Department DIBRIS - Computer science 
 
-24 Feb 2021 - Genoa Italy
+24th February 2021 - Genoa Italy
 
-Version 1.0 - Written in C++
+Version 1.01 - Written in C++
 
 [ITA]
 Questo programma è basato sull'implementazione del AES 256 basato sulla
