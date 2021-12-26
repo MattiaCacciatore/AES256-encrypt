@@ -1,10 +1,10 @@
 /*
- *  AES256_test_main.c
+ *  AES256_test_main.cpp
  *
  *  Copyright (c) 2021, Mattia Cacciatore <cacciatore1995@hotmail.it>
  *  All rights reserved.
  *
- *	AES256 is free software: you can redistribute it and/or modify
+ *  AES256 is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as
  *  published by the Free Software Foundation, either version 2.1
  *  of the License, or (at your option) any later version.
@@ -23,31 +23,26 @@
 int main()
 {
 	unsigned char c;
-	/*  Message/plaintext/password. */
+	// Message/plaintext/password.
 	unsigned char text[TEXT_SIZE];
-	/*  State_out matrix - encrypted message/plaintext/password. */
+	// State_out matrix - encrypted message/plaintext/password.
 	unsigned char enc_text[NUM_BLOCKS][NUM_BLOCKS];
-	/*  Initializing text field. */
+	// Initializing text field.
 	for(int i = 0; i < TEXT_SIZE; ++i)
 		text[i] = 0x00;
 	
 	std::cout << "Insert your password/text [MAX 16 characters]: ";
-	for(int i = 0; i < TEXT_SIZE; ++i)
-	{
+	for(int i = 0; i < TEXT_SIZE; ++i){
 		c = fgetc(stdin); 
-		if(c == '\n' || c == '\0' || c == EOF)
-			break;
-		
+		if(c == '\n' || c == '\0' || c == EOF) break;
 		text[i] = c;
 	}
 	
-	freopen("aes256_test.txt","w",stdout);
-	
-	aes256::Encrypt(text, enc_text); /*  Magic! Wizard power! */
+	freopen("aes256_test.txt","w",stdout); // Open/dup/close. Output redirection on file.
+	aes256::Encrypt(text, enc_text);       // Magic! Wizard power!
 	
 	std::cout << "Plaintext:\n\n";
-	for(int i = 0; i < TEXT_SIZE; ++i)
-		std::cout << text[i];
+	for(int i = 0; i < TEXT_SIZE; ++i){ std::cout << text[i];}
 	
 	std::cout << "\n\nEncrypted text:\n";
 	PrintMatrix(enc_text);
