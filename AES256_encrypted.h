@@ -2,8 +2,8 @@
  *
  *  Copyright (c) 2021, Mattia Cacciatore <cacciatore1995@hotmail.it>
  *  All rights reserved.
- *
- *	AES256 is free software: you can redistribute it and/or modify
+ *  
+ *  AES256 is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as
  *  published by the Free Software Foundation, either version 2.1
  *  of the License, or (at your option) any later version.
