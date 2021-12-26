@@ -1,5 +1,4 @@
-/*
- *  AES256_test_main.cpp
+/*  AES256_test_main.cpp
  *
  *  Copyright (c) 2021, Mattia Cacciatore <cacciatore1995@hotmail.it>
  *  All rights reserved.
@@ -20,8 +19,7 @@
  */
 #include"AES256_encrypted.h"
 
-int main()
-{
+int main(){
 	unsigned char c;
 	// Message/plaintext/password.
 	unsigned char text[TEXT_SIZE];
@@ -38,13 +36,13 @@ int main()
 	}
 	
 	freopen("aes256_test.txt","w",stdout); // Open/dup/close. Output redirection on file.
-	aes256::Encrypt(text, enc_text);       // Magic! Wizard power!
+	aes256::encrypt(text, enc_text);       // Magic! Wizard power!
 	
 	std::cout << "Plaintext:\n\n";
 	for(int i = 0; i < TEXT_SIZE; ++i){ std::cout << text[i];}
 	
 	std::cout << "\n\nEncrypted text:\n";
-	PrintMatrix(enc_text);
+	print_matrix(enc_text);
 	
 	return 0;
 }
