@@ -1,5 +1,4 @@
-/*
- *  AES256_encrypted.h
+/*  AES256_encrypted.h
  *
  *  Copyright (c) 2021, Mattia Cacciatore <cacciatore1995@hotmail.it>
  *  All rights reserved.
@@ -35,24 +34,12 @@
 /*------------------------------------------------------------------------------------------------------------------------------*/
 namespace aes256{
 // Encrypt key using AES-256 algorithm. First array input, second matrix output.
-void Encrypt(const unsigned char [TEXT_SIZE], unsigned char [NUM_BLOCKS][NUM_BLOCKS]);
-// It creates other Nr keys based on the first key (first key = plaintext).
-void KeyExpansion(unsigned char [NUM_BLOCKS][NUM_BLOCKS * (NUM_ROUNDS + 1)]);
-// Rijndael key schedule.
-void AESKeyScheduler(const unsigned char [NUM_BLOCKS][NUM_BLOCKS * (NUM_ROUNDS + 1)], unsigned char [NUM_BLOCKS][NUM_BLOCKS], const int);
-// First step of AES-256 algorithm. It substitute matrix values with Rijndael's s_box values.
-void SubBytes(unsigned char [NUM_BLOCKS][NUM_BLOCKS]);
-// Second step of AES-256 algorithm. It switchs rows between them creating confusion.
-void ShiftRows(unsigned char [NUM_BLOCKS][NUM_BLOCKS]);
-// Third step of AES-256 algorithm. It diffuses confusion.
-void MixColumns(unsigned char [NUM_BLOCKS][NUM_BLOCKS]);
-// Fourth and last step of AES-256 algorithm. It permutes state matrix with roundkey using XOR operator.
-void AddRoundKey(unsigned char [NUM_BLOCKS][NUM_BLOCKS], const unsigned char [NUM_BLOCKS][NUM_BLOCKS]);
+void encrypt(const unsigned char [TEXT_SIZE], unsigned char [NUM_BLOCKS][NUM_BLOCKS]);
 }
 /*------------------------------------------------------------------------------------------------------------------------------*/
 //	OTHER FUNCTIONS
 /*------------------------------------------------------------------------------------------------------------------------------*/
 // Print matrix 4 x 4.
-void PrintMatrix(const unsigned char [NUM_BLOCKS][NUM_BLOCKS]);
+void print_matrix(const unsigned char [NUM_BLOCKS][NUM_BLOCKS]);
 // Print matrix 4 x 68.
-void PrintExpandedMatrix(const unsigned char [NUM_BLOCKS][NUM_BLOCKS * (NUM_ROUNDS + 1)]);
+void print_expanded_matrix(const unsigned char [NUM_BLOCKS][NUM_BLOCKS * (NUM_ROUNDS + 1)]);
