@@ -23,7 +23,7 @@
 /*------------------------------------------------------------------------------------------------------------------------------*/
 // It should be 32 byte length --> 256 bit. 
 // AES 256 official document test pag. 42 FIPS.
-const unsigned char PrivateKey[KEY_SIZE] = { 
+const unsigned char private_key[KEY_SIZE] = { 
 	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
 	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 
 	0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 
@@ -103,7 +103,7 @@ void rotate_word(unsigned char word[NUM_BLOCKS]){
     // |B7|    |98|
     // |98|    |1F|
     tmp = word[0];
-    for(int i = 0; i < NUM_BLOCKS - 1; ++i){ word[i]= word[i + 1];}
+    for(int i = 0; i < NUM_BLOCKS - 1; ++i){ word[i] = word[i + 1];}
     word[NUM_BLOCKS - 1] = tmp;
 }
 // Second step of Key expansion, it takes the same column and substitute values with s_box. 
@@ -143,7 +143,7 @@ void key_expansion(unsigned char expanded_key[NUM_BLOCKS][NUM_BLOCKS * (NUM_ROUN
    unsigned char tmp[NUM_BLOCKS];
    for(int c = 0, i = 0; i < KEY_SIZE; ++c){
 	// Copying Secret Key in the first 8 columns.
-	for(int r = 0; r < NUM_BLOCKS; ++r, ++i){ expanded_key[r][c] = PrivateKey[i];}
+	for(int r = 0; r < NUM_BLOCKS; ++r, ++i){ expanded_key[r][c] = private_key[i];}
    }
 	
    for(int i = NUM_KEY, round = 1; i < NUM_BLOCKS * (NUM_ROUNDS + 1) ; ++i){
@@ -244,7 +244,7 @@ void add_round_key(unsigned char state[NUM_BLOCKS][NUM_BLOCKS], const unsigned c
         // | s31 s32 s33 s34 |     | r31 r32 r33 r34 |     | se31 se32 se33 se34 |
 	// | s41 s42 s43 s44 |     | r41 r42 r43 r44 |     | se41 se42 se43 se44 |
 	//	 state                  round_key               state encrypted
-	for(int c = 0; c < NUM_BLOCKS; ++c, ++i){ state[r][c] = static_cast<unsigned char>(state[r][c] ^ RoundKey[r][c]);} // XOR operation.
+	for(int c = 0; c < NUM_BLOCKS; ++c, ++i){ state[r][c] = static_cast<unsigned char>(state[r][c] ^ round_key[r][c]);} // XOR operation.
    }
 }
 /*------------------------------------------------------------------------------------------------------------------------------*/
@@ -257,12 +257,10 @@ void encrypt(const unsigned char state_in[TEXT_SIZE], unsigned char state_out[NU
     unsigned char round_key[NUM_BLOCKS][NUM_BLOCKS];
     // Expanded key matrix.
     unsigned char expanded_key[NUM_BLOCKS][NUM_BLOCKS * (NUM_ROUNDS + 1)];
-    
     // Initializing state matrix...
     for(int c = 0, i = 0; c < NUM_BLOCKS; ++c){
     	for(int r = 0; r < NUM_BLOCKS; ++r, ++i){ state[r][c] = state_in[i];}
     }
-	
     key_expansion(expanded_key);
     // AESKeyScheduler set appropriate key for that round in RoundKey. First round.
     AES_key_scheduler(expanded_key, round_key, 0);
