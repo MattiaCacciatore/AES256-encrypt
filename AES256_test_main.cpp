@@ -28,8 +28,7 @@ int main()
 	// State_out matrix - encrypted message/plaintext/password.
 	unsigned char enc_text[NUM_BLOCKS][NUM_BLOCKS];
 	// Initializing text field.
-	for(int i = 0; i < TEXT_SIZE; ++i)
-		text[i] = 0x00;
+	for(int i = 0; i < TEXT_SIZE; ++i){ text[i] = 0x00;}
 	
 	std::cout << "Insert your password/text [MAX 16 characters]: ";
 	for(int i = 0; i < TEXT_SIZE; ++i){
